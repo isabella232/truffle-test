@@ -19,7 +19,7 @@ RUN curl -o dist.tar.gz http://lafo.ssw.uni-linz.ac.at/graalvm/jruby-dist-master
 	&& jruby-master/bin/jruby -X+T -e 'puts "Runnnig on Graal?: #{Truffle.graal?}"' \
 	&& rm dist.tar.gz
 
-RUN echo 'exec /jruby-master/bin/jruby+truffle run "$@"' > /jruby-master/bin/ruby && chmod +x /jruby-master/bin/ruby
+RUN echo 'exec /jruby-master/bin/jruby -X+T -r "./.jruby+truffle_bundle/bundler/setup.rb" "$@"' > /jruby-master/bin/ruby && chmod +x /jruby-master/bin/ruby
 # ENV PATH "/jruby-master/bin:$PATH"
 
 CMD cd /app;passenger start --ruby /jruby-master/bin/ruby
